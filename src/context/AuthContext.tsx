@@ -175,6 +175,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       const registeredUser = signUpResult.user;
+      if (signUpResult.session) {
+        setSession(signUpResult.session);
+        setUser(signUpResult.session.user);
+      } else if (registeredUser) {
+        setUser(registeredUser);
+      }
       if (registeredUser) {
         const newProfile: UserProfile = {
           fullName: data.fullName.trim(),
@@ -194,7 +200,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setProfile(newProfile);
         await AsyncStorage.setItem(`${LOCAL_PROFILE_KEY}_${registeredUser.id}`, JSON.stringify(newProfile));
 
-        // Try to insert into profiles table if available
         try {
           await supabase.from('profiles').upsert({
             id: registeredUser.id,
@@ -202,11 +207,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             updated_at: new Date().toISOString(),
           });
         } catch {
-          // Table may not exist yet, metadata and local storage suffice
         }
       }
 
-      // Check if email confirmation is required
       const needsEmailConfirmation = !signUpResult.session;
 
       return { error: null, needsEmailConfirmation };

@@ -59,9 +59,16 @@ export default function OnboardingScreen() {
     reminderPeriod: 'PM',
   });
 
+  function showAlert(title: string, message?: string) {
+    if (Platform.OS === 'web') {
+      window.alert(title + (message ? `\n\n${message}` : ''));
+    } else {
+      Alert.alert(title, message);
+    }
+  }
+
   function handleBack() {
     if (step > 1) {
-      // If going back from step 11 and user had notifications turned off, skip step 10
       if (step === 11 && !formData.notificationsEnabled) {
         setStep(9);
       } else {
@@ -73,10 +80,9 @@ export default function OnboardingScreen() {
   }
 
   function handleNext() {
-    // Validations
     if (step === 1) {
       if (!formData.fullName.trim()) {
-        Alert.alert('Required', 'Please enter your full name.');
+        showAlert('Required', 'Please enter your full name.');
         return;
       }
       setStep(2);
@@ -85,11 +91,11 @@ export default function OnboardingScreen() {
 
     if (step === 2) {
       if (!formData.email.trim() || !formData.password) {
-        Alert.alert('Required', 'Please enter both email and password.');
+        showAlert('Required', 'Please enter both email and password.');
         return;
       }
       if (formData.password.length < 6) {
-        Alert.alert('Password too short', 'Password must be at least 6 characters.');
+        showAlert('Password too short', 'Password must be at least 6 characters.');
         return;
       }
       setStep(3);
@@ -97,7 +103,6 @@ export default function OnboardingScreen() {
     }
 
     if (step === 9) {
-      // If notifications selected as 'No', skip reminder time step (step 10)
       if (!formData.notificationsEnabled) {
         setStep(11);
         return;
@@ -123,21 +128,18 @@ export default function OnboardingScreen() {
     setIsSubmitting(false);
 
     if (error) {
-      Alert.alert('Signup Failed', error.message);
+      showAlert('Signup Failed', error.message);
       return;
     }
 
     if (needsEmailConfirmation) {
-      Alert.alert(
+      showAlert(
         'Account Created!',
-        'Please check your email to confirm your account before logging in.',
-        [{ text: 'OK', onPress: () => router.replace('/login') }]
+        'Your account has been created. Please check your email to confirm your account when you get a chance.'
       );
-    } else {
-      Alert.alert('Welcome!', 'Your account and preferences have been successfully set up.', [
-        { text: 'Get Started', onPress: () => router.replace('/home') },
-      ]);
     }
+
+    router.replace('/home');
   }
 
   function toggleAudioGenre(genre: string) {

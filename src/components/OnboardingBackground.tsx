@@ -12,7 +12,7 @@ export function OnboardingBackground({ children }: Props) {
       <LinearGradient
         colors={['#EAE6DF', '#DFE6D5', '#CCD9BF', '#ADC09D', '#9BB18A']}
         locations={[0, 0.35, 0.65, 0.85, 1]}
-        style={StyleSheet.absoluteFillObject}
+        style={StyleSheet.absoluteFill}
       />
       {/* Decorative mountain silhouettes in background */}
       <View style={styles.mountainBack} />

@@ -24,7 +24,11 @@ export default function LoginScreen() {
 
   async function handleLogin() {
     if (!email.trim() || !password) {
-      Alert.alert('Missing Fields', 'Please enter both email and password.');
+      if (Platform.OS === 'web') {
+        window.alert('Please enter both email and password.');
+      } else {
+        Alert.alert('Missing Fields', 'Please enter both email and password.');
+      }
       return;
     }
 
@@ -33,7 +37,11 @@ export default function LoginScreen() {
     setLoading(false);
 
     if (error) {
-      Alert.alert('Login Failed', error.message);
+      if (Platform.OS === 'web') {
+        window.alert(`Login Failed: ${error.message}`);
+      } else {
+        Alert.alert('Login Failed', error.message);
+      }
     } else {
       router.replace('/home');
     }
