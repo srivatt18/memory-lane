@@ -112,7 +112,7 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={[styles.card, styles.meditationCard]}
             activeOpacity={0.88}
-            onPress={() => handleCardPress('Meditation')}
+            onPress={() => router.push('/music-selection')}
           >
             <Text style={styles.cardText}>Meditation</Text>
           </TouchableOpacity>
@@ -173,7 +173,7 @@ export default function HomeScreen() {
           activeOpacity={0.7}
           onPress={() => {
             setActiveTab('relax');
-            handleCardPress('Meditation');
+            router.push('/music-selection');
           }}
         >
           <Ionicons
