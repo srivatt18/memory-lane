@@ -30,7 +30,7 @@ export default function MusicSelectionScreen() {
           <View style={[styles.headerContent, { paddingTop: Math.max(insets.top, 10) + 20 }]}>
             <View style={styles.headerTopRow}>
                 <View style={styles.titleContainer}>
-                    <Text style={styles.greetingTitle}>Relax</Text>
+                    <Text style={styles.greetingTitle}>Meditation</Text>
                     <Text style={styles.greetingSubtitle}>Choose a soundscape to relax with</Text>
                 </View>
             </View>
