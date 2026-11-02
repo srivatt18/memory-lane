@@ -2,12 +2,14 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, router } from 'expo-router';
 import BottomNav from './bottomNav';
+import BreathingCircleComponent from './BreathingCircleComponent';
 
 export default function MusicSelectionScreen() {
   const { selectedGenre } = useLocalSearchParams();
@@ -33,12 +35,22 @@ export default function MusicSelectionScreen() {
                     <View style={styles.titleContainer}>
                         <Text style={styles.greetingTitle}>{selectedGenre} Meditation</Text>
                         <Text style={styles.greetingSubtitle}>Sit in a quiet place and relax.{'\n'}Press stop when you are done.</Text>
+                        {/* TODO: Include brief description of box breathing? */}
                     </View>
                 </View>
             </View>
         </View>
 
-        {/* start button */}
+        <TouchableOpacity 
+                style={styles.startBtn} 
+                activeOpacity={0.88}
+                onPress={() => {
+                    router.push({
+                        pathname:'/meditation-session'
+                    });
+                }}>
+            <Text style={styles.startBtnText}>Start</Text>
+           </TouchableOpacity>
       </ScrollView>
       <BottomNav />
     </View>
@@ -106,6 +118,22 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     gap: 18,
     justifyContent: 'center',
+  },
+  startBtn: {
+    height: 100,
+    maxWidth: 300,
+    borderRadius: 50,
+    backgroundColor: '#7D9A63',
+    justifyContent: 'center',
+    margin: 50,
+    marginTop: 80
+  },
+  startBtnText: {
+    fontSize: 30,
+    fontWeight: '700',
+    textAlign: 'center',
+    color: '#FFFFFF',
   }
+
 });
 
