@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { View, StyleSheet, Text} from 'react-native';
 import Animated, { useSharedValue, withRepeat, withTiming, withSequence, withDelay, useAnimatedStyle} from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
@@ -6,27 +6,46 @@ import { scheduleOnRN } from 'react-native-worklets';
 
 export default function BreathingCircleComponent() {
     const [circleText, setCircleText] = useState('Ready');
+    const [countdown, setCountdownText] = useState('4');
+    const currCountdownValue = useRef(4);
     //shared val for animation
     const circleSize = useSharedValue(2);
 
+
+    //updates the circle with stage of box breathing ("breathe in", "Hold", etc) and the counter for each stage simultaneuosly
+    const updateCircle = (newStageMsg: string) => {
+        clearInterval(currCountdownValue.current);
+        
+        setCircleText(newStageMsg);
+        setCountdownText("4");
+
+        let counter = 4;
+
+        currCountdownValue.current = setInterval(() => {
+            counter--;
+            setCountdownText(counter.toString());
+        }, 1000);
+    }
+
     useEffect(() => {
+        updateCircle("Ready");
         circleSize.value = withRepeat(
             withSequence(
                 //pause for 4 seconds: - 4 seconds for each step fo box breathing
                 withDelay(4000, withTiming(2, {duration: 0}, () => {
-                    scheduleOnRN(setCircleText, "Breathe In")
+                    scheduleOnRN(updateCircle, "Breathe In")
                 })),
                 //expand for 4 seconds:
                 withTiming(3,{duration: 4000}, () => {
-                    scheduleOnRN(setCircleText, "Hold")
+                    scheduleOnRN(updateCircle, "Hold")
                 }),
                 //pause for 4 seconds:
                 withDelay(4000, withTiming(3, {duration: 0}, () => {
-                    scheduleOnRN(setCircleText, "Breathe Out")
+                    scheduleOnRN(updateCircle, "Breathe Out")
                 })),
                 //shrink for 4 seconds:
                 withTiming(2,{duration: 4000}, () => {
-                    scheduleOnRN(setCircleText, "Hold")
+                    scheduleOnRN(updateCircle, "Hold")
                 })
             ),
             -1,
@@ -46,6 +65,7 @@ export default function BreathingCircleComponent() {
         <View style={styles.outerCircle}>
             <Animated.View style={[styles.innerCircle, animatedStyle]}>
                 <Text>{circleText}</Text>
+                <Text>{countdown}</Text>
             </Animated.View>
         </View>
     </View>)
