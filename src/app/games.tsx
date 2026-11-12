@@ -16,14 +16,14 @@ import BottomNav from './bottomNav';
 interface GameItem {
   id: string;
   name: string;
-  route?: '/sudoku' | '/wordsearch';
+  route?: '/sudoku' | '/wordsearch' | '/crossword';
   available: boolean;
 }
 
 const GAMES: GameItem[] = [
   { id: 'sudoku', name: 'Sudoku', route: '/sudoku', available: true },
   { id: 'wordsearch', name: 'Word Search', route: '/wordsearch', available: true },
-  { id: 'crossword', name: 'Crossword', available: false },
+  { id: 'crossword', name: 'Crossword', route: '/crossword', available: true },
   { id: 'trivia', name: 'Trivia', available: false },
 ];
 

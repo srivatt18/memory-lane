@@ -26,6 +26,7 @@ export default function RootLayout() {
           <Stack.Screen name="meditation-session" />
           <Stack.Screen name="sudoku" />
           <Stack.Screen name="wordsearch" />
+          <Stack.Screen name="crossword" />
         </Stack>
       </AuthProvider>
     </SafeAreaProvider>
