@@ -21,6 +21,7 @@ export default function RootLayout() {
           <Stack.Screen name="onboarding" />
           <Stack.Screen name="home" />
           <Stack.Screen name="sudoku" />
+          <Stack.Screen name="wordsearch" />
         </Stack>
       </AuthProvider>
     </SafeAreaProvider>
