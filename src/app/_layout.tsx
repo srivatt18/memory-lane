@@ -20,6 +20,7 @@ export default function RootLayout() {
           <Stack.Screen name="login" />
           <Stack.Screen name="onboarding" />
           <Stack.Screen name="home" />
+          <Stack.Screen name="games" />
           <Stack.Screen name="music-selection" />
           <Stack.Screen name="meditation-start" />
           <Stack.Screen name="meditation-session" />
@@ -30,4 +31,3 @@ export default function RootLayout() {
     </SafeAreaProvider>
   );
 }
-

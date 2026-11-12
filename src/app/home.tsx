@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,7 +14,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import BottomNav from './bottomNav';
-
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
@@ -40,19 +39,6 @@ export default function HomeScreen() {
         },
       },
     ]);
-  };
-
-  const handleCardPress = (activity: string) => {
-    const msg =
-      activity === 'Brain Games'
-        ? 'Ready to challenge your memory and focus?'
-        : 'Take a quiet moment for mindful breathing and calm.';
-
-    if (Platform.OS === 'web') {
-      window.alert(`${activity}\n\n${msg}`);
-    } else {
-      Alert.alert(activity, msg);
-    }
   };
 
   return (
@@ -103,7 +89,7 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={[styles.card, styles.brainGamesCard]}
             activeOpacity={0.88}
-            onPress={() => handleCardPress('Brain Games')}
+            onPress={() => router.push('/games')}
           >
             <Text style={styles.cardText}>Brain Games</Text>
           </TouchableOpacity>
@@ -118,7 +104,7 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
 
-      <BottomNav />
+      <BottomNav currentTab="home" />
     </View>
   );
 }
@@ -269,6 +255,5 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#FFFFFF',
     letterSpacing: 0.3,
-  }
+  },
 });
-

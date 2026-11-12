@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,89 +7,102 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { router, usePathname } from 'expo-router';
 
 type TabType = 'games' | 'home' | 'relax' | null;
 
-export default function BottomNav() {
-    const [activeTab, setActiveTab] = useState<TabType>(null);
-    const insets = useSafeAreaInsets();
+interface BottomNavProps {
+  currentTab?: TabType;
+}
 
-    return <View
-        style={[
-          styles.bottomNav,
-          { paddingBottom: Math.max(insets.bottom, 16) },
-        ]}
+export default function BottomNav({ currentTab }: BottomNavProps = {}) {
+  const pathname = usePathname();
+  const insets = useSafeAreaInsets();
+
+  const activeTab: TabType = currentTab ?? (
+    pathname === '/games'
+      ? 'games'
+      : pathname === '/home'
+      ? 'home'
+      : pathname === '/music-selection' || pathname?.startsWith('/meditation')
+      ? 'relax'
+      : null
+  );
+
+  return (
+    <View
+      style={[
+        styles.bottomNav,
+        { paddingBottom: Math.max(insets.bottom, 16) },
+      ]}
+    >
+      <TouchableOpacity
+        style={styles.navItem}
+        activeOpacity={0.7}
+        onPress={() => {
+          router.push('/games');
+        }}
       >
-        <TouchableOpacity
-          style={styles.navItem}
-          activeOpacity={0.7}
-          onPress={() => {
-            setActiveTab('games');
-            // TODO: add gaming navigation here when implemented
-          }}
+        <MaterialCommunityIcons
+          name="brain"
+          size={28}
+          color={activeTab === 'games' ? '#748DA6' : '#2D3B24'}
+        />
+        <Text
+          style={[
+            styles.navLabel,
+            activeTab === 'games' && styles.navLabelActive,
+          ]}
         >
-          <MaterialCommunityIcons
-            name="brain"
-            size={28}
-            color={activeTab === 'games' ? '#748DA6' : '#2D3B24'}
-          />
-          <Text
-            style={[
-              styles.navLabel,
-              activeTab === 'games' && styles.navLabelActive,
-            ]}
-          >
-            Games
-          </Text>
-        </TouchableOpacity>
+          Games
+        </Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.navItem}
-          activeOpacity={0.7}
-          onPress={() => {
-            setActiveTab('home');
-            router.push('/home');
-          }}
+      <TouchableOpacity
+        style={styles.navItem}
+        activeOpacity={0.7}
+        onPress={() => {
+          router.push('/home');
+        }}
+      >
+        <Ionicons
+          name={activeTab === 'home' ? 'home' : 'home-outline'}
+          size={27}
+          color="#2D3B24"
+        />
+        <Text
+          style={[
+            styles.navLabel,
+            activeTab === 'home' && styles.navLabelActive,
+          ]}
         >
-          <Ionicons
-            name={activeTab === 'home' ? 'home' : 'home-outline'}
-            size={27}
-            color="#2D3B24"
-          />
-          <Text
-            style={[
-              styles.navLabel,
-              activeTab === 'home' && styles.navLabelActive,
-            ]}
-          >
-            Home
-          </Text>
-        </TouchableOpacity>
+          Home
+        </Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.navItem}
-          activeOpacity={0.7}
-          onPress={() => {
-            setActiveTab('relax');
-            router.push('/music-selection');
-          }}
+      <TouchableOpacity
+        style={styles.navItem}
+        activeOpacity={0.7}
+        onPress={() => {
+          router.push('/music-selection');
+        }}
+      >
+        <Ionicons
+          name={activeTab === 'relax' ? 'leaf' : 'leaf-outline'}
+          size={27}
+          color={activeTab === 'relax' ? '#7D9A63' : '#2D3B24'}
+        />
+        <Text
+          style={[
+            styles.navLabel,
+            activeTab === 'relax' && styles.navLabelActive,
+          ]}
         >
-          <Ionicons
-            name="leaf-outline"
-            size={27}
-            color={activeTab === 'relax' ? '#7D9A63' : '#2D3B24'}
-          />
-          <Text
-            style={[
-              styles.navLabel,
-              activeTab === 'relax' && styles.navLabelActive,
-            ]}
-          >
-            Relax
-          </Text>
-        </TouchableOpacity>
-      </View>
+          Relax
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -46,7 +46,7 @@ export default function MusicSelectionScreen() {
         </View>
       </ScrollView>
 
-      <BottomNav />
+      <BottomNav currentTab="relax" />
     </View>
   );
 }
@@ -111,4 +111,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   }
 });
-

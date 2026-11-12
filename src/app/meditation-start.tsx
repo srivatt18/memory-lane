@@ -52,7 +52,7 @@ export default function MusicSelectionScreen() {
             <Text style={styles.startBtnText}>Start</Text>
            </TouchableOpacity>
       </ScrollView>
-      <BottomNav />
+      <BottomNav currentTab="relax" />
     </View>
   );
 }
@@ -136,4 +136,3 @@ const styles = StyleSheet.create({
   }
 
 });
-
