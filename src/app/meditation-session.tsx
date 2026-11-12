@@ -10,8 +10,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import BottomNav from './bottomNav';
 import BreathingCircleComponent from './BreathingCircleComponent';
 import { useAudioPlayer } from 'expo-audio';
-import { useEffect } from 'react';
-import { useLocalSearchParams, router } from 'expo-router';
+import { useLocalSearchParams, router, useFocusEffect } from 'expo-router';
+import { useCallback } from 'react';
 
 export default function MeditationSessionScreen() {
 
@@ -29,14 +29,15 @@ export default function MeditationSessionScreen() {
   const musicPlayer = useAudioPlayer(selectedMusicFile);
 
   //start playing music on page load and have it continuosuly play until user ends the session
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     musicPlayer.loop = true;
+    musicPlayer.seekTo(0);
     musicPlayer.play();
 
     return () => {
       musicPlayer.pause();
     };
-  }, [musicPlayer])
+    }, [musicPlayer]));
 
   return (
     <View style={styles.screen}>
@@ -55,24 +56,19 @@ export default function MeditationSessionScreen() {
             bounces={false}
             showsVerticalScrollIndicator={false}
         >
-          <TouchableOpacity onPress={() => router.push('./meditation-start')} style={styles.backButton} activeOpacity={0.7}>
-           <Text style={styles.backArrow} 
-                 onPress={() => {
-                    musicPlayer.pause(); 
-                    router.push({
-                        pathname:'/meditation-start'
-                    });
-                }}>‹ Start Screen</Text>
+          <TouchableOpacity 
+            onPress={() => {
+              router.back()}} 
+            style={styles.backButton} 
+            activeOpacity={0.7}>
+           <Text style={styles.backArrow}>‹ Start Screen</Text>
           </TouchableOpacity>
             <BreathingCircleComponent />
             <TouchableOpacity 
                 style={styles.stopBtn} 
                 activeOpacity={0.88}
                 onPress={() => {
-                    musicPlayer.pause();
-                    router.push({
-                        pathname:'/meditation-start'
-                    });
+                    router.back();
                 }}>
               <Text style={styles.stopBtnText}>Stop</Text>
            </TouchableOpacity>
