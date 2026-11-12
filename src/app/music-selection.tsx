@@ -41,7 +41,7 @@ export default function MusicSelectionScreen() {
         <View style={styles.cardsContainer}>
           <MusicGenreCard genre="Ambient"/>
           <MusicGenreCard genre="Classical"/>
-          <MusicGenreCard genre="Nature Sounds"/>
+          <MusicGenreCard genre="Nature"/>
           <MusicGenreCard genre="Lo-Fi"/>
         </View>
       </ScrollView>

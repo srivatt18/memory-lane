@@ -5,19 +5,27 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomNav from './bottomNav';
 import BreathingCircleComponent from './BreathingCircleComponent';
 import { useAudioPlayer } from 'expo-audio';
 import { useEffect } from 'react';
-import { router } from 'expo-router';
+import { useLocalSearchParams, router } from 'expo-router';
 
 export default function MeditationSessionScreen() {
-  const insets = useSafeAreaInsets();
-  const musicPlayer = useAudioPlayer(
-    require('../../assets/meditation-music/Ambient.mp4')
-  )
+
+  const musicMapping: Record<string, any> = {
+    Ambient: require('../../assets/meditation-music/Ambient.mp4'),
+    Classical: require('../../assets/meditation-music/Classical.mp4'),
+    Nature: require('../../assets/meditation-music/NatureSounds.mp4'),
+    'Lo-Fi': require('../../assets/meditation-music/Lofi.mp4')
+  };
+
+  const { selectedGenre } = useLocalSearchParams<{selectedGenre: string;}>();
+
+  const selectedMusicFile = musicMapping[selectedGenre];
+
+  const musicPlayer = useAudioPlayer(selectedMusicFile);
 
   //start playing music on page load and have it continuosuly play until user ends the session
   useEffect(() => {

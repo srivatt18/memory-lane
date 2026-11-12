@@ -45,7 +45,8 @@ export default function MusicSelectionScreen() {
                 activeOpacity={0.88}
                 onPress={() => {
                     router.push({
-                        pathname:'/meditation-session'
+                        pathname:'/meditation-session',
+                        params: {selectedGenre: selectedGenre}
                     });
                 }}>
             <Text style={styles.startBtnText}>Start</Text>
