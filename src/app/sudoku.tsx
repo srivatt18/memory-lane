@@ -7,6 +7,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  Platform,
 } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,11 +16,14 @@ import { generateSudoku, SudokuDifficulty, SudokuGrid } from '@/lib/sudoku';
 
 const DIFFICULTIES: SudokuDifficulty[] = ['easy', 'medium', 'hard'];
 
+type CheckStatus = 'correct' | 'incorrect' | null;
+
 export default function SudokuScreen() {
   const [difficulty, setDifficulty] = useState<SudokuDifficulty>('easy');
   const [puzzle, setPuzzle] = useState<SudokuGrid | null>(null);
   const [solution, setSolution] = useState<SudokuGrid | null>(null);
   const [fixedMask, setFixedMask] = useState<boolean[][] | null>(null);
+  const [checkMask, setCheckMask] = useState<CheckStatus[][]>([]);
   const [selected, setSelected] = useState<{ row: number; col: number } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,6 +37,7 @@ export default function SudokuScreen() {
       setPuzzle(generated.puzzle.map((row) => [...row]));
       setSolution(generated.solution);
       setFixedMask(generated.puzzle.map((row) => row.map((cell) => cell !== null)));
+      setCheckMask(Array.from({ length: 9 }, () => Array(9).fill(null)));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load puzzle.');
     } finally {
@@ -41,18 +46,28 @@ export default function SudokuScreen() {
   }, []);
 
   useEffect(() => {
-
     loadPuzzle(difficulty);
   }, [difficulty, loadPuzzle]);
 
+  function clearCellCheck(r: number, c: number) {
+    setCheckMask((prev) => {
+      if (!prev[r] || prev[r][c] === null) return prev;
+      const next = prev.map((row) => [...row]);
+      next[r][c] = null;
+      return next;
+    });
+  }
+
   function handleCellPress(row: number, col: number) {
     if (!fixedMask || fixedMask[row][col]) return;
+    clearCellCheck(row, col);
     setSelected({ row, col });
   }
 
   function handleDigitPress(digit: number) {
     if (!selected) return;
     const { row, col } = selected;
+    clearCellCheck(row, col);
     setPuzzle((prev) => {
       if (!prev) return prev;
       const next = prev.map((r) => [...r]);
@@ -64,6 +79,7 @@ export default function SudokuScreen() {
   function handleErase() {
     if (!selected) return;
     const { row, col } = selected;
+    clearCellCheck(row, col);
     setPuzzle((prev) => {
       if (!prev) return prev;
       const next = prev.map((r) => [...r]);
@@ -74,6 +90,7 @@ export default function SudokuScreen() {
 
   function handleClearAll() {
     if (!fixedMask) return;
+    setCheckMask(Array.from({ length: 9 }, () => Array(9).fill(null)));
     setPuzzle((prev) => {
       if (!prev) return prev;
       return prev.map((row, r) => row.map((cell, c) => (fixedMask[r][c] ? cell : null)));
@@ -81,19 +98,58 @@ export default function SudokuScreen() {
   }
 
   function handleCheck() {
-    if (!puzzle || !solution) return;
-    const isComplete = puzzle.every((row) => row.every((cell) => cell !== null));
-    if (!isComplete) {
-      Alert.alert('Keep going', 'Fill in every cell before checking.');
+    if (!puzzle || !solution || !fixedMask) return;
+
+    let enteredCount = 0;
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let totalFillable = 0;
+
+    const newMask: CheckStatus[][] = puzzle.map((row, r) =>
+      row.map((cell, c) => {
+        if (fixedMask[r][c]) return null;
+        totalFillable++;
+        if (cell === null) return null;
+
+        enteredCount++;
+        if (cell === solution[r][c]) {
+          correctCount++;
+          return 'correct';
+        } else {
+          incorrectCount++;
+          return 'incorrect';
+        }
+      })
+    );
+
+    setCheckMask(newMask);
+
+    if (enteredCount === 0) {
+      showAlert('Start Solving', 'Enter numbers into the puzzle before checking.');
       return;
     }
-    const isCorrect = puzzle.every((row, r) => row.every((cell, c) => cell === solution[r][c]));
-    Alert.alert(
-      isCorrect ? 'Solved!' : 'Not quite',
-      isCorrect
-        ? 'Great job, the puzzle is correct.'
-        : "Some numbers don't match the solution yet."
-    );
+
+    if (correctCount === totalFillable) {
+      showAlert('Solved! 🎉', 'Congratulations! You solved the entire Sudoku puzzle correctly!');
+    } else if (incorrectCount === 0) {
+      showAlert(
+        'Looking Good!',
+        `All ${correctCount} numbers entered so far are correct! Keep going to finish the puzzle.`
+      );
+    } else {
+      showAlert(
+        'Check Results',
+        `Correct numbers are highlighted in green, and incorrect numbers in red.`
+      );
+    }
+  }
+
+  function showAlert(title: string, message: string) {
+    if (Platform.OS === 'web') {
+      window.alert(`${title}\n\n${message}`);
+    } else {
+      Alert.alert(title, message);
+    }
   }
 
   return (
@@ -101,7 +157,7 @@ export default function SudokuScreen() {
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.header}>
-            <TouchableOpacity onPress={() => router.back()} style={styles.backButton} activeOpacity={0.7}>
+            <TouchableOpacity onPress={() => router.push('/games')} style={styles.backButton} activeOpacity={0.7}>
               <Text style={styles.backArrow}>‹</Text>
               <Text style={styles.headerTitle}>Sudoku</Text>
             </TouchableOpacity>
@@ -155,12 +211,16 @@ export default function SudokuScreen() {
                     {row.map((cell, c) => {
                       const isFixed = fixedMask[r][c];
                       const isSelected = selected?.row === r && selected?.col === c;
+                      const checkStatus = checkMask[r]?.[c] ?? null;
+
                       return (
                         <TouchableOpacity
                           key={c}
                           style={[
                             styles.cell,
                             isFixed && styles.cellFixedBg,
+                            checkStatus === 'correct' && styles.cellCorrect,
+                            checkStatus === 'incorrect' && styles.cellIncorrect,
                             c % 3 === 2 && c !== 8 && styles.cellThickRight,
                             r % 3 === 2 && r !== 8 && styles.cellThickBottom,
                             isSelected && styles.cellSelected,
@@ -169,7 +229,14 @@ export default function SudokuScreen() {
                           activeOpacity={isFixed ? 1 : 0.7}
                           disabled={isFixed}
                         >
-                          <Text style={[styles.cellText, isFixed && styles.cellTextFixed]}>
+                          <Text
+                            style={[
+                              styles.cellText,
+                              isFixed && styles.cellTextFixed,
+                              checkStatus === 'correct' && styles.cellTextCorrect,
+                              checkStatus === 'incorrect' && styles.cellTextIncorrect,
+                            ]}
+                          >
                             {cell ?? ''}
                           </Text>
                         </TouchableOpacity>
@@ -350,6 +417,14 @@ const styles = StyleSheet.create({
   cellFixedBg: {
     backgroundColor: '#F1EFE7',
   },
+  cellCorrect: {
+    backgroundColor: '#D9ECD0',
+    borderColor: '#739F63',
+  },
+  cellIncorrect: {
+    backgroundColor: '#FDE5E5',
+    borderColor: '#E17A78',
+  },
   cellThickRight: {
     borderRightWidth: 2,
     borderRightColor: '#5B6E4E',
@@ -364,11 +439,19 @@ const styles = StyleSheet.create({
   cellText: {
     fontSize: 17,
     fontWeight: '500',
-    color: '#4A6741',
+    color: '#1F2A1C',
   },
   cellTextFixed: {
     fontWeight: '700',
     color: '#2E3D27',
+  },
+  cellTextCorrect: {
+    color: '#205513',
+    fontWeight: '700',
+  },
+  cellTextIncorrect: {
+    color: '#B32624',
+    fontWeight: '700',
   },
   numberPad: {
     flexDirection: 'row',

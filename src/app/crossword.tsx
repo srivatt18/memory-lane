@@ -330,7 +330,7 @@ export default function CrosswordScreen() {
         >
           {/* Header */}
           <View style={styles.header}>
-            <TouchableOpacity onPress={() => router.back()} style={styles.backButton} activeOpacity={0.7}>
+            <TouchableOpacity onPress={() => router.push('/games')} style={styles.backButton} activeOpacity={0.7}>
               <Text style={styles.backArrow}>‹</Text>
               <Text style={styles.headerTitle}>Crossword</Text>
             </TouchableOpacity>
