@@ -9,7 +9,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, router } from 'expo-router';
 import BottomNav from './bottomNav';
-import BreathingCircleComponent from './BreathingCircleComponent';
 
 export default function MusicSelectionScreen() {
   const { selectedGenre } = useLocalSearchParams();
