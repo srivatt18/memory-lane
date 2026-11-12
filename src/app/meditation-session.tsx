@@ -3,14 +3,15 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  Text
+  Text, 
+  Image
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import BottomNav from './bottomNav';
 import BreathingCircleComponent from './BreathingCircleComponent';
 import { useAudioPlayer } from 'expo-audio';
-import { useEffect } from 'react';
-import { useLocalSearchParams, router } from 'expo-router';
+import { useLocalSearchParams, router, useFocusEffect } from 'expo-router';
+import { useCallback } from 'react';
 
 export default function MeditationSessionScreen() {
 
@@ -28,19 +29,23 @@ export default function MeditationSessionScreen() {
   const musicPlayer = useAudioPlayer(selectedMusicFile);
 
   //start playing music on page load and have it continuosuly play until user ends the session
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     musicPlayer.loop = true;
+    musicPlayer.seekTo(0);
     musicPlayer.play();
 
     return () => {
       musicPlayer.pause();
     };
-  }, [musicPlayer])
+    }, [musicPlayer]));
 
   return (
     <View style={styles.screen}>
+        <Image
+        source={require('../../assets/meditationBackground.png')}
+        style={styles.backImg} />
         <LinearGradient
-            colors={['#EAE6DF', '#DFE6D5', '#CCD9BF', '#ADC09D', '#9BB18A']}
+            colors={['#eae6dfc4', '#dfe6d5c7', '#ccd9bfc4', '#adc09dcc', '#9bb18acd']}
             locations={[0, 0.35, 0.65, 0.85, 1]}
             style={StyleSheet.absoluteFill}
             pointerEvents='none'
@@ -51,15 +56,19 @@ export default function MeditationSessionScreen() {
             bounces={false}
             showsVerticalScrollIndicator={false}
         >
+          <TouchableOpacity 
+            onPress={() => {
+              router.back()}} 
+            style={styles.backButton} 
+            activeOpacity={0.7}>
+           <Text style={styles.backArrow}>‹ Start Screen</Text>
+          </TouchableOpacity>
             <BreathingCircleComponent />
             <TouchableOpacity 
                 style={styles.stopBtn} 
                 activeOpacity={0.88}
                 onPress={() => {
-                    musicPlayer.pause();
-                    router.push({
-                        pathname:'/meditation-start'
-                    });
+                    router.back();
                 }}>
               <Text style={styles.stopBtnText}>Stop</Text>
            </TouchableOpacity>
@@ -72,21 +81,38 @@ export default function MeditationSessionScreen() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    position: 'relative'
   },
   scrollView: {
     flex: 1,
   },
+  backImg: {
+    ...StyleSheet.absoluteFill,
+    height: '100%',
+    width: '100%'
+  },
   scrollContent: {
     flexGrow: 1,
   },
+  backButton: {
+    paddingTop: '100',
+    paddingLeft: '20'
+  },
+  backArrow: {
+    fontSize: 20,
+    color: '#34452C',
+    lineHeight: 30,
+    fontWeight: '500',
+  },
   stopBtn: {
-    height: 100,
+    height: 90,
     maxWidth: 300,
     borderRadius: 50,
-    backgroundColor: '#e22323',
+    backgroundColor: '#a35c5c',
     justifyContent: 'center',
     margin: 50,
-    marginTop: 80
+    marginTop: 80,
+    marginBottom: 70
   },
   stopBtnText: {
     fontSize: 30,
