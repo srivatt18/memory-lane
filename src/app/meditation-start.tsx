@@ -16,25 +16,29 @@ export default function MusicSelectionScreen() {
 
   return (
     <View style={styles.screen}>
+      <TouchableOpacity onPress={() => router.push('/music-selection')} style={styles.backButton} activeOpacity={0.7}>
+          <Text style={styles.backArrow}>‹ Audio Selection</Text>
+      </TouchableOpacity>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         bounces={false}
         showsVerticalScrollIndicator={false}
       >
+        
         <View style={styles.headerCard}>
             <LinearGradient
                 colors={['#EAE6DF', '#DFE6D5', '#CCD9BF', '#ADC09D', '#9BB18A']}
                 locations={[0, 0.35, 0.65, 0.85, 1]}
                 style={StyleSheet.absoluteFill}
             />
+            
         
-            <View style={[styles.headerContent, { paddingTop: Math.max(insets.top, 10) + 220 }]}>
+            <View style={[styles.headerContent, { paddingTop: Math.max(insets.top, 10) + 110 }]}>
                 <View style={styles.headerTopRow}>
                     <View style={styles.titleContainer}>
                         <Text style={styles.greetingTitle}>{selectedGenre} Meditation</Text>
                         <Text style={styles.greetingSubtitle}>Sit in a quiet place and relax.{'\n'}Press stop when you are done.</Text>
-                        {/* TODO: Include brief description of box breathing? */}
                     </View>
                 </View>
             </View>
@@ -74,7 +78,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderBottomLeftRadius: 36,
     borderBottomRightRadius: 36,
-    minHeight: 450,
+    minHeight: 350,
     backgroundColor: '#CCD9BF',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -92,17 +96,26 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
+  backButton: {
+    paddingTop: '100',
+    paddingLeft: '20'
+  },
+  backArrow: {
+    fontSize: 20,
+    color: '#34452C',
+    lineHeight: 30,
+    fontWeight: '500',
+  },
   titleContainer: {
     flex: 1,
     paddingRight: 12,
   },
   greetingTitle: {
-    fontSize: 28,
-    fontWeight: '700',
+    fontSize: 40,
+    fontWeight: '300',
     color: '#2D3B24',
     letterSpacing: 0.3,
-    textAlign: 'center',
-    marginBottom: 12
+    textAlign: 'center'
   },
   greetingSubtitle: {
     fontSize: 16,
@@ -120,7 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   startBtn: {
-    height: 100,
+    height: 90,
     maxWidth: 300,
     borderRadius: 50,
     backgroundColor: '#7D9A63',
