@@ -63,9 +63,9 @@ export default function HomeScreen() {
           <View style={[styles.headerContent, { paddingTop: Math.max(insets.top, 20) + 12 }]}>
             <View style={styles.headerTopRow}>
               <View style={styles.titleContainer}>
-                <Text style={styles.greetingTitle}>Nice to see you</Text>
+                <Text style={styles.greetingTitle}>Nice to see you!</Text>
                 <Text style={styles.greetingSubtitle}>
-                  How do you want to grow your{'\n'}cognitive wellness today!
+                  How do you want to grow your{'\n'}cognitive wellness today?
                 </Text>
               </View>
 
@@ -80,7 +80,7 @@ export default function HomeScreen() {
             </View>
 
             <View style={styles.quoteWrapper}>
-              <Text style={styles.quoteText}>“Take it easy”</Text>
+              <Text style={styles.quoteText}> Take it easy. </Text>
             </View>
           </View>
         </View>
