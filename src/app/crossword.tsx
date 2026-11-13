@@ -332,7 +332,7 @@ export default function CrosswordScreen() {
           <View style={styles.header}>
             <TouchableOpacity onPress={() => router.push('/games')} style={styles.backButton} activeOpacity={0.7}>
               <Text style={styles.backArrow}>‹</Text>
-              <Text style={styles.headerTitle}>Crossword</Text>
+              <Text style={styles.headerTitle}>Game Selection</Text>
             </TouchableOpacity>
           </View>
 
@@ -650,10 +650,9 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#2D3B24',
-    letterSpacing: 0.3,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#34452C',
   },
   difficultyRow: {
     flexDirection: 'row',

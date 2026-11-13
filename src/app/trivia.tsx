@@ -84,7 +84,7 @@ export default function TriviaScreen() {
                   activeOpacity={0.7}
                 >
                   <Text style={styles.backArrow}>‹</Text>
-                  <Text style={styles.headerTitle}>Trivia</Text>
+                  <Text style={styles.headerTitle}>Game Selection</Text>
                 </TouchableOpacity>
               </View>
 

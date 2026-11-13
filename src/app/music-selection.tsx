@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
   },
   greetingSubtitle: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 22,
     color: '#34452A',
     marginTop: 8,

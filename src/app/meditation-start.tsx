@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 4,
+    paddingBottom: 40
   },
   headerContent: {
     paddingHorizontal: 24,
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   greetingSubtitle: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 22,
     color: '#34452A',
     marginTop: 8,
