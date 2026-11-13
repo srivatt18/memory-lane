@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     color: '#34452C',
   },
@@ -230,30 +230,30 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   loadingText: {
-    fontSize: 15,
+    fontSize: 17,
     color: '#556847',
   },
   errorText: {
-    fontSize: 15,
+    fontSize: 17,
     color: '#7A3B3B',
     textAlign: 'center',
     maxWidth: 300,
   },
   retryButton: {
     backgroundColor: '#7D9A63',
-    height: 44,
+    height: 48,
     paddingHorizontal: 28,
-    borderRadius: 22,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
   },
   retryButtonText: {
     color: '#FFFFFF',
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: '600',
   },
   statusText: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '500',
     color: '#425338',
     textAlign: 'center',
@@ -270,8 +270,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cell: {
-    width: 30,
-    height: 30,
+    width: 34,
+    height: 34,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#87A46E',
   },
   cellText: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '600',
     color: '#4A6741',
   },
@@ -301,9 +301,9 @@ const styles = StyleSheet.create({
     maxWidth: 340,
   },
   wordPill: {
-    height: 36,
-    paddingHorizontal: 16,
-    borderRadius: 18,
+    height: 42,
+    paddingHorizontal: 18,
+    borderRadius: 21,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     borderColor: '#738F5C',
   },
   wordText: {
-    fontSize: 13,
+    fontSize: 16,
     fontWeight: '600',
     color: '#38472E',
   },
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
   },
   secondaryButtonText: {
     color: '#38472E',
-    fontSize: 14,
+    fontSize: 17,
     fontWeight: '600',
   },
   primaryButton: {
@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
   },
   primaryButtonText: {
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 17,
     fontWeight: '600',
   },
 });
