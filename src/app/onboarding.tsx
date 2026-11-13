@@ -185,7 +185,7 @@ export default function OnboardingScreen() {
             {/* Step 1 (Onboarding 2): Full Name */}
             {step === 1 && (
               <View style={styles.stepContainer}>
-                <Text style={styles.stepPrompt}>Enter your full name :</Text>
+                <Text style={styles.stepPrompt}>Enter your full name:</Text>
                 <TextInput
                   style={styles.pillInput}
                   placeholder="First Last"
@@ -202,7 +202,7 @@ export default function OnboardingScreen() {
             {step === 2 && (
               <View style={styles.stepContainer}>
                 <View style={styles.inputGroup}>
-                  <Text style={styles.stepPrompt}>Enter your email :</Text>
+                  <Text style={styles.stepPrompt}>Enter your email:</Text>
                   <TextInput
                     style={styles.pillInput}
                     placeholder="abcd1234@go.com"
@@ -216,7 +216,7 @@ export default function OnboardingScreen() {
                 </View>
 
                 <View style={styles.inputGroup}>
-                  <Text style={styles.stepPrompt}>Enter your password :</Text>
+                  <Text style={styles.stepPrompt}>Enter your password:</Text>
                   <TextInput
                     style={styles.pillInput}
                     placeholder="************"
@@ -232,7 +232,7 @@ export default function OnboardingScreen() {
             {/* Step 3 (Onboarding 4): Age Range */}
             {step === 3 && (
               <View style={styles.stepContainer}>
-                <Text style={styles.stepPrompt}>What is your age range.</Text>
+                <Text style={styles.stepPrompt}>What is your age range?</Text>
                 <View style={styles.ageRangeGrid}>
                   {AGE_RANGES.map((range) => {
                     const isSelected = formData.ageRange === range;
@@ -259,7 +259,7 @@ export default function OnboardingScreen() {
             {step === 4 && (
               <View style={styles.stepContainer}>
                 <Text style={styles.stepPrompt}>
-                  Rate your experience with Cognitive wellness practices on a scale of 1-10:
+                  Rate your experience with Cognitive Wellness practices on a scale of 1-10. With 1 being no experience to 10 being an expert:
                 </Text>
                 <View style={styles.ratingNumberGrid}>
                   {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => {
@@ -285,7 +285,7 @@ export default function OnboardingScreen() {
             {/* Step 5 (Onboarding 6): Stress Level */}
             {step === 5 && (
               <View style={styles.stepContainer}>
-                <Text style={styles.stepPrompt}>Rate your stress level from 1-10:</Text>
+                <Text style={styles.stepPrompt}>Rate your stress level from 1-10. With 1 being no stress to 10 being extremely stressed:</Text>
                 <View style={styles.ratingNumberGrid}>
                   {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => {
                     const isSelected = formData.stressRating === num;
@@ -311,7 +311,7 @@ export default function OnboardingScreen() {
             {step === 6 && (
               <View style={styles.stepContainer}>
                 <Text style={styles.stepPrompt}>
-                  Rate how busy you are with work or other responsibilities on a scale of 1-10:
+                  Rate how busy you are with work or other responsibilities on a scale of 1-10. With 1 being not busy at all to 10 being you have little to no time for yourself:
                 </Text>
                 <View style={styles.ratingNumberGrid}>
                   {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => {
@@ -338,7 +338,7 @@ export default function OnboardingScreen() {
             {step === 7 && (
               <View style={styles.stepContainer}>
                 <Text style={styles.stepPrompt}>
-                  Select audio genres you'd enjoy for relaxation
+                  Select audio genres you'd enjoy for relaxation:
                 </Text>
                 <View style={styles.cardsGrid}>
                   {AUDIO_GENRES.map((genre) => {
@@ -364,7 +364,7 @@ export default function OnboardingScreen() {
             {step === 8 && (
               <View style={styles.stepContainer}>
                 <Text style={styles.stepPrompt}>
-                  Select brain games you'd enjoy as options for staying sharp
+                  Select brain games you'd enjoy as options for staying sharp:
                 </Text>
                 <View style={styles.cardsGrid}>
                   {BRAIN_GAMES.map((game) => {
