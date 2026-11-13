@@ -72,13 +72,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 38,
-    fontWeight: '600',
+    fontSize: 50,
+    fontWeight: '500',
     color: '#2D3B24',
     letterSpacing: 0.5,
   },
   subtitle: {
-    fontSize: 15,
+    fontSize: 20,
     color: '#556649',
     marginTop: 10,
     textAlign: 'center',

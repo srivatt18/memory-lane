@@ -134,13 +134,13 @@ const styles = StyleSheet.create({
     paddingRight: 12,
   },
   greetingTitle: {
-    fontSize: 28,
-    fontWeight: '700',
+    fontSize: 40,
+    fontWeight: '300',
     color: '#2D3B24',
     letterSpacing: 0.3,
   },
   greetingSubtitle: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 22,
     color: '#34452A',
     marginTop: 8,

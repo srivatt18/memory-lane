@@ -109,7 +109,7 @@ export default function WordSearchScreen() {
           <View style={styles.header}>
             <TouchableOpacity onPress={() => router.push('/games')} style={styles.backButton} activeOpacity={0.7}>
               <Text style={styles.backArrow}>‹</Text>
-              <Text style={styles.headerTitle}>Word Search</Text>
+              <Text style={styles.headerTitle}>Game Selection</Text>
             </TouchableOpacity>
           </View>
 
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '600',
     color: '#34452C',
   },
