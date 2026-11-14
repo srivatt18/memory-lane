@@ -38,7 +38,7 @@ Run: `npx expo install --check`
 If there are incompatibilities run:
 `npx expo install --fix`
 
-5. The app requires some third-party API services taht you need a key for. 
+5. The app requires some third-party API services that you need a key for. 
     a. Create a .env file in the root directory of the project
     b. Copy and paste the format of the '.env.example' file and paste your acquired API keys into that file.
 
@@ -46,7 +46,6 @@ If there are incompatibilities run:
     For the TAs grading in the HCI class, our team will share our API keys with you securely outside of the GitHub repo. This includes Supabase url, Supabase anon key, the API ninjas key, and the API Verve key. Here are links to the third-party APIs we used:
     - Supabase: https://supabase.com/
     - API Ninjas (Sudoku API): https://api-ninjas.com/api/sudoku#sudokugenerate-endpoint
-    - API Ninjas (Trivia API): https://api-ninjas.com/api/trivia#trivia-endpoint
     - APIVerve (Crossword Generator API): https://apiverve.com/marketplace/crossword?utm_source=github&utm_medium=referral&utm_content=readme#parameters
     - APIVerve (Wordsearch Generator API): https://apiverve.com/marketplace/wordsearch
     
