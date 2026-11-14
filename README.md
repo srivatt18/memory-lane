@@ -13,6 +13,7 @@ Memory Lane includes mini games that users can integrate into their daily routin
 - Database and Authentication: Supabase​
 - App Navigation: Expo Router
 - Audio Functionality: Expo Audio
+- Notifications: Expo Notifications
 
 ## How our UI functions
 
