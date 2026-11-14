@@ -101,7 +101,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .eq('id', currentUser.id)
         .maybeSingle();
 
-      if (!error && remoteData) {
+      if (error) {
+        console.warn('Could not fetch profile from Supabase:', error.message);
+      } else if (remoteData) {
         const merged: UserProfile = {
           fullName: remoteData.full_name || currentUser.user_metadata?.full_name,
           email: currentUser.email || '',
@@ -199,15 +201,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         setProfile(newProfile);
         await AsyncStorage.setItem(`${LOCAL_PROFILE_KEY}_${registeredUser.id}`, JSON.stringify(newProfile));
-
-        try {
-          await supabase.from('profiles').upsert({
-            id: registeredUser.id,
-            ...metadata,
-            updated_at: new Date().toISOString(),
-          });
-        } catch {
-        }
       }
 
       const needsEmailConfirmation = !signUpResult.session;
