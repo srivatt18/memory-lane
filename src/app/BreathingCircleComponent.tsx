@@ -62,12 +62,14 @@ export default function BreathingCircleComponent() {
     });
 
     return (<View style={styles.circleContainer}>
-        <View style={styles.outermostCircle}>
-            <View style={styles.outerCircle}>
-                <Animated.View style={[styles.innerCircle, animatedStyle]}>
-                    <Text style={{fontSize: 15, fontWeight: '300'}}>{circleText}</Text>
-                    <Text style={{fontSize: 15, fontWeight: '300'}}>{countdown}</Text>
-                </Animated.View>
+        <View style={styles.thirdOutermostCircle}>
+            <View style={styles.secondOutermostCircle}>
+                <View style={styles.firstOutermostCircle}>
+                    <Animated.View style={[styles.innerCircle, animatedStyle]}>
+                        <Text style={{fontSize: 15, fontWeight: '300'}}>{circleText}</Text>
+                        <Text style={{fontSize: 15, fontWeight: '300'}}>{countdown}</Text>
+                    </Animated.View>
+                </View>
             </View>
         </View>
     </View>)
@@ -82,7 +84,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#ffffff0b'
     },
-    outermostCircle: {
+    thirdOutermostCircle: {
+        height: 330,
+        width: 330,
+        backgroundColor: '#ffffff87',
+        borderRadius: 160,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    secondOutermostCircle: {
         height: 310,
         width: 310,
         backgroundColor: '#ffffff87',
@@ -90,7 +100,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    outerCircle: {
+    firstOutermostCircle: {
         height: 290,
         width: 290,
         backgroundColor: '#ffffffba',
