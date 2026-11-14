@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { OnboardingBackground } from '@/components/OnboardingBackground';
 import { useAuth } from '@/context/AuthContext';
 import { OnboardingData } from '@/types/auth';
+import { scheduleDailyReminder, cancelDailyReminder } from '@/lib/dailyReminder';
 
 const AUDIO_GENRES = [
   'Classical Music',
@@ -131,6 +132,19 @@ export default function OnboardingScreen() {
       showAlert('Signup Failed', error.message);
       return;
     }
+
+    if (formData.notificationsEnabled) 
+    {
+      await scheduleDailyReminder(
+        formData.reminderHour,
+        formData.reminderMinute,
+        formData.reminderPeriod
+      );
+    }
+    else {
+     await cancelDailyReminder();
+    }
+
 
     if (needsEmailConfirmation) {
       showAlert(
