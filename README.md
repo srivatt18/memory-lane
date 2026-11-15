@@ -5,6 +5,9 @@ the cognitive wellness through relaxation and cognitive wellness through brain s
 
 Memory Lane includes mini games that users can integrate into their daily routines, including Sudoku, Word Search, Crossword, and Trivia. The app also includes a Meditation mode where users can select their music and follow a box breathing session on screen.
 
+**Walkthrough Video**
+https://youtu.be/RiqmRGu_dj4
+
 ## Technologies used
 - UI Framework: React Native​
 - Languages: JavaScript, TypeScript​
