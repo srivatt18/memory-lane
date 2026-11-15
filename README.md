@@ -24,6 +24,9 @@ This app has an integrated database built using Supabase that allows new users t
 ## Running the App
 This is a step-by-step to load the project onto your local machine and run it on your mobile phone using Expo Go:
 
+Prerequisites:
+Install Git and Node.js with npm, then open Terminal (macOS/Linux) or PowerShell (Windows).
+
 1. Clone the repository: (make sure you ahve git installed on your local machine)
 Run the command: `git clone https://github.com/srivatt18/memory-lane.git`
 
@@ -60,6 +63,9 @@ Once keys are retrieved and in your .env file, the app is ready to run!
     `npx expo start`
 
     On your CLI, confirm that the mode is set to Expo Go, then, using your mobile phone, scan the QR code and Memory Lane will load in the Expo Go app!
+
+   if you want to run it on laptop browser, run:
+   `npm run web`
 
     **Note: In order to hear the music when on Meditation mode, please turn on the ringer on your mobile device.**
 
